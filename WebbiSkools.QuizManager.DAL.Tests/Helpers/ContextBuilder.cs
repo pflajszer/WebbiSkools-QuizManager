@@ -15,7 +15,7 @@ namespace WebbiSkools.QuizManager.DAL.Tests.Helpers
 			get
 			{
 				var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-					.UseSqlServer("Data Source=webbiskools-quizmanager.database.windows.net;Initial Catalog=QuizManager;User Id=webbiskoolssysadmin;Password=9MzNgeaXE5Xc;",
+					.UseSqlServer("Available in Project Outputs and Deliverables.docx file",
 						sqlServerOptionsAction: sqlOptions =>
 						{
 							sqlOptions.MigrationsAssembly("WebbiSkools.QuizManager.DAL");
