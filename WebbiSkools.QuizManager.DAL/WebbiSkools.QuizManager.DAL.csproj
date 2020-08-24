@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200818083104_added-question-to-answer.cs" />
+    <Compile Remove="Migrations\20200818083104_added-question-to-answer.Designer.cs" />
+    <Compile Remove="Migrations\20200818083409_added-question-to-answer.cs" />
+    <Compile Remove="Migrations\20200818083409_added-question-to-answer.Designer.cs" />
+    <Compile Remove="Migrations\20200818084449_qsnts-added-to-quiz.cs" />
+    <Compile Remove="Migrations\20200818084449_qsnts-added-to-quiz.Designer.cs" />
+    <Compile Remove="Migrations\20200818084537_qsnts-added-to-quiz.cs" />
+    <Compile Remove="Migrations\20200818084537_qsnts-added-to-quiz.Designer.cs" />
+    <Compile Remove="Migrations\20200818084644_qsnts-added-to-quiz.cs" />
+    <Compile Remove="Migrations\20200818084644_qsnts-added-to-quiz.Designer.cs" />
+    <Compile Remove="Migrations\20200818084844_qsnts-added-to-quiz.cs" />
+    <Compile Remove="Migrations\20200818084844_qsnts-added-to-quiz.Designer.cs" />
+    <Compile Remove="Migrations\20200818090520_qstns-added-to-answers.cs" />
+    <Compile Remove="Migrations\20200818090520_qstns-added-to-answers.Designer.cs" />
+    <Compile Remove="Migrations\20200818091238_new.cs" />
+    <Compile Remove="Migrations\20200818091238_new.Designer.cs" />
+    <Compile Remove="Migrations\20200818091446_another-take-ques-to-ans.cs" />
+    <Compile Remove="Migrations\20200818091446_another-take-ques-to-ans.Designer.cs" />
+    <Compile Remove="Migrations\20200821160341_test.cs" />
+    <Compile Remove="Migrations\20200821160341_test.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

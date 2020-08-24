@@ -1,0 +1,46 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.Roles.IndexModel
+@{
+	ViewData["Title"] = "Roles";
+}
+
+
+@section Styles
+{
+	<link rel="stylesheet" href="~/css/Roles/index.css" asp-append-version="true" />
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">All Roles</h1>
+		<a href="#" id="createRole" class="text-success">Create a Role</a>
+		<hr class="style-seven" />
+		<div id="alertBox" class="alert alert-success"></div>
+		<div class="container" id="createCard">
+			<div class="row justify-content-center">
+				<div class="col-md-6">
+					<div class="text-center">
+						Create a new Role
+						<div>
+							<form id="createForm" method="post" asp-page-handler="Create">
+								<span class="text-danger" asp-validation-for="RoleCreate.Name"></span>
+								<input asp-for="RoleCreate.Name" class="form-control" />
+								<button style="margin:1rem;" class="btn btn-primary" type="submit">Create</button>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div id="rolesTable">
+			<partial name="_RolesTable" model="@Model.Roles" />
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script src="~/js/Roles/index.js" asp-append-version="true"></script>
+	<partial name="_ValidationScriptsPartial" />
+}

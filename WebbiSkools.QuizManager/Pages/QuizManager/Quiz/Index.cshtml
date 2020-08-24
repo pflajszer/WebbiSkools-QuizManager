@@ -1,0 +1,61 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Quiz.IndexModel
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+	var isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+	var isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+	var isUserView = await UserManager.IsInRoleAsync(currentUser, "View");
+
+	ViewData["Title"] = "Quizes";
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">@ViewData["Title"]</h1>
+		<div class="col-12 col-md-6 col-lg-4" id="subMenuBar">
+			@if (isUserAdmin || isUserEdit)
+			{
+				<a asp-page="Create">Create New</a>
+			}
+		</div>
+
+		<hr class="style-seven" />
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>
+						@Html.LabelFor(modelItem => Model.Quiz.FirstOrDefault().Name)
+					</th>
+					<th>
+						@Html.LabelFor(modelItem => Model.Quiz.FirstOrDefault().LastModified)
+					</th>
+					<th>
+						@Html.LabelFor(modelItem => Model.Quiz.FirstOrDefault().CreatedOn)
+					</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.Quiz)
+				{
+					<tr>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.LastModified)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.CreatedOn)
+						</td>
+						<td>
+							<a asp-page="./Details" asp-route-QuizId="@item.Id">Details</a>
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>

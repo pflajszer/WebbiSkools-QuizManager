@@ -1,0 +1,51 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Quiz.EditModel
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+	var isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+	var isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+	var isUserView = await UserManager.IsInRoleAsync(currentUser, "View"); 
+	
+	ViewData["Title"] = "Edit";
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">Edit the Quiz</h1>
+		<div class="col-12 col-md-6 col-lg-4" id="subMenuBar">
+			<a id="someId" asp-page="./Details" asp-route-QuizId="@Model.Quiz.Id">Back to Details page</a>
+			@if (isUserAdmin || isUserEdit)
+			{
+				<form method="post" asp-route-QuizId="@Model.Quiz.Id" asp-page-handler="DeleteQuiz">
+					<button id="submitText" class="text-danger" type="submit">Delete</button>
+				</form>
+			}
+		</div>
+		<hr class="style-seven" />
+		<div class="row">
+			<div class="col-md-4">
+				<form method="post">
+					<input hidden asp-for="Quiz.Id" />
+					<input hidden asp-for="Quiz.CreatedOn" />
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-group">
+						<label asp-for="Quiz.Name" class="control-label"></label>
+						<input asp-for="Quiz.Name" class="form-control" />
+						<span asp-validation-for="Quiz.Name" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Save" class="btn btn-primary" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="~/js/QuizManager/Quiz/edit.js" asp-append-version="true"></script>
+
+}
+

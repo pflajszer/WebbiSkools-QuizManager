@@ -1,0 +1,40 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Question.IndexModel
+@{
+	ViewData["Title"] = "Question Manager";
+	var quizId = HttpContext.Request.Query["QuizId"];
+}
+<div class="card">
+	<div class="card-body">
+
+
+		<h1 class="display-4">@ViewData["Title"]</h1>
+		<div class="col-12 col-md-6 col-lg-4" id="subMenuBar">
+				<a asp-page="Create" asp-route-QuizId="@quizId">Create New</a>
+				@if (quizId != Microsoft.Extensions.Primitives.StringValues.Empty)
+				{
+					<a asp-page="../Quiz/Details" asp-route-QuizId="@quizId">Back To Quiz</a>
+				}
+		</div>
+		<hr class="style-seven" />
+
+		@if (quizId != Microsoft.Extensions.Primitives.StringValues.Empty)
+		{
+			<h1 class="display-4">
+				Questions <small>that are assigned to this Quiz</small>
+			</h1>
+			<partial name="_QuestionsTable" model="Model.AssignedQuestions" />
+			<h1 class="display-4">
+				Questions <small>that are <b>not</b> assigned to any Quiz</small>
+			</h1>
+			<partial name="_QuestionsTable" model="Model.NotAssignedQuestions" />
+		}
+		else
+		{
+			<h1 class="display-4">
+				All Questions
+			</h1>
+			<partial name="_QuestionsTable" model="Model.AllQuestions" />
+		}
+	</div>
+</div>

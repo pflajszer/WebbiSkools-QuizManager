@@ -1,0 +1,33 @@
+﻿:root {
+	--main-card-color: #F1FAEE;
+	--main-card-header-color: #e63946;
+	/*	--main-card-gradient: radial-gradient(circle, rgba(255,255,255,0.17060591326374297) 0%, rgba(255,222,95,0.5319504510788691) 100%);*/
+	--main-card-on-card-gradient: radial-gradient(circle, rgba(245,97,115,0.3) 0%, rgba(93,96,253,0.3) 100%);
+	--main-card-on-card-color: rgba(168, 224, 215, 0.3);
+	--main-box-shadow: 5px 10px 20px #828e9e;
+}
+
+
+
+.card {
+	opacity: 0.9;
+	border-radius: 0;
+	border: none;
+	box-shadow: 5px 10px 20px #828e9e;
+	margin: 1rem;
+}
+
+.card-header {
+	font-weight: bold;
+	font-size: large;
+	background-color: var(--main-card-header-color);
+}
+
+.card-body {
+	background-color: var(--main-card-color);
+/*	background: var(--main-card-gradient);*/
+}
+
+.card.card-on-card .card-body {
+	background-color: var(--main-card-on-card-color);
+}

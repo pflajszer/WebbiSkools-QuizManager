@@ -1,0 +1,9 @@
+﻿:root {
+	--main-jumbotron-color: #F1FAEE;
+}
+
+
+.jumbotron, .jumbotron-fluid {
+	background-color: var(--main-jumbotron-color);
+	padding: 200px;
+}

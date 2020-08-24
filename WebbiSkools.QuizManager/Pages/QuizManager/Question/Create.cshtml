@@ -1,0 +1,70 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Question.CreateModel
+@{
+	ViewData["Title"] = "Create";
+	var quizId = HttpContext.Request.Query["QuizId"];
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/QuizManager/Question/create.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/QuizManager/Question/shared.css" asp-append-version="true" />
+}
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">Create a new Question</h1>
+		<div>
+			<a asp-page="Index" asp-route-QuizId="@quizId">Back to List</a>
+		</div>
+		<hr class="style-seven" />
+		<form method="post">
+			<div class="row">
+				<div class="col-md-4">
+					<div asp-validation-summary="All" class="text-danger"></div>
+					<div class="form-group">
+						<label asp-for="Question.Text" class="control-label"></label>
+						<input asp-for="Question.Text" class="form-control" />
+						<span asp-validation-for="Question.Text" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Question.Quiz" class="control-label"></label>
+						<select asp-for="Question.QuizId" class="form-control" asp-items="ViewBag.QuizId"></select>
+						<span asp-validation-for="Question.Quiz" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						@*<input type="submit" value="Create" class="btn btn-primary" />*@
+						<button class="btn btn-primary" type="submit">Create</button>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div id="subMenuBar">
+						<a id="addAnswerBtn" class="text-success">Add Answer</a>
+						<a id="removeAnswerBtn" class="text-danger">Remove Answer</a>
+					</div>
+					<p id="addAnswerMsgBox"></p>
+					<hr class="style-two" />
+					@for (var i = 0; i < 5; i++)
+					{
+						<div id="answer-@i" class="form-group">
+							<label asp-for="Question.Answers[i].Text" class="control-label"></label>
+							<div class="input-group">
+								<input asp-for="Question.Answers[i].Text" class="form-control" />
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Correct?</span>
+								</div>
+								<input asp-for="Question.Answers[i].IsCorrect" onclick="selectOnlyThis(this)" class="form-control isCorrectCheckbox"/>
+							</div>
+							<span asp-validation-for="Question.Answers[i].Text" class="text-danger"></span>
+						</div>
+					}
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="~/js/QuizManager/Question/create.js" asp-append-version="true"></script>
+	<script src="~/js/QuizManager/Question/shared.js" asp-append-version="true"></script>
+}

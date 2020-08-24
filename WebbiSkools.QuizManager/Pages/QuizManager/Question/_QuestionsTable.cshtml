@@ -1,0 +1,83 @@
+﻿@model IList<WebbiSkools.QuizManager.BRL.ViewModels.Quiz.QuestionViewModel>
+
+@{ 
+	var quizId = ViewBag.QuizId;
+	var questionId = 0;
+}
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.LabelFor(modelItem => Model.FirstOrDefault().Id)
+			</th>	  
+			<th>	  
+				@Html.LabelFor(modelItem => Model.FirstOrDefault().Text)
+			</th>	  
+			<th>	  
+				@Html.LabelFor(modelItem => Model.FirstOrDefault().LastModified)
+			</th>	  
+			<th>	  
+				@Html.LabelFor(modelItem => Model.FirstOrDefault().CreatedOn)
+			</th>
+			<th>
+				Actions
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Id)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Text)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.LastModified)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CreatedOn)
+				</td>
+				<td>
+					<a asp-page="./Details" asp-route-id="@item.Id" asp-route-QuizId="@quizId">Details</a>
+					<a asp-page="./Edit" asp-route-id="@item.Id" asp-route-QuizId="@quizId">Edit</a>
+					@if (quizId != null && Convert.ToInt32(quizId) != item.QuizId)
+					{
+						<form method="post"
+							  data-ajax="true"
+							  data-ajax-confirm="Are you sure you want to assign this question to the current quiz?"
+							  data-ajax-loading="#spinner-@item.Id"
+							  data-ajax-complete="reload"
+							  asp-page-handler="AssignToCurrentQuiz">
+							<input type="hidden" asp-for="@questionId" value="@item.Id" />
+							<input type="hidden" asp-for="@quizId" />
+							<button id="submitText" class="text-success" type="submit">Assign To This Quiz</button>
+							<div id="spinner-@item.Id" class="spinner-grow loading-spinner" style="width: 3rem; height: 3rem;" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</form>
+					}
+					@if (quizId != null && Convert.ToInt32(quizId) == item.QuizId)
+					{
+						<form method="post"
+							  data-ajax="true"
+							  data-ajax-confirm="Are you sure you want to unassign this question from the current quiz?"
+							  data-ajax-loading="#spinner-@item.Id"
+							  data-ajax-complete="reload"
+							  asp-page-handler="UnassignQuestionFromCurrentQuiz">
+							<input type="hidden" asp-for="@questionId" value="@item.Id" />
+							<input type="hidden" asp-for="@quizId" />
+							<button id="submitText" class="text-danger" type="submit">Unassign From This Quiz</button>
+							<div id="spinner-@item.Id" class="spinner-grow loading-spinner" style="width: 3rem; height: 3rem;" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						</form>
+					}
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

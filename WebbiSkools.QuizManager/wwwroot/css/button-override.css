@@ -1,0 +1,54 @@
+﻿:root {
+	--main-btn-primary-bg-color: #e63946;
+	--main-btn-primary-bg-hover-color: #1D3557;
+	--main-btn-primary-text-hover-color: #F1FAEE;
+	--main-btn-primary-text-color: #F1FAEE;
+
+	--main-btn-secondary-bg-color: #457b9d;
+	--main-btn-secondary-bg-hover-color: #1D3557;
+	--main-btn-secondary-text-hover-color: #F1FAEE;
+	--main-btn-secondary-text-color: #F1FAEE;
+}
+
+
+button.accept-policy {
+	font-size: 1rem;
+	line-height: inherit;
+}
+
+.btn-primary {
+	color: var(--main-btn-primary-text-color);
+	background-color: var(--main-btn-primary-bg-color);
+	border-color: #1D3557;
+}
+
+	.btn-primary:hover {
+		color: var(--main-btn-primary-text-hover-color);
+		background-color: var(--main-btn-primary-bg-hover-color);
+		border-color: #1D3557;
+	}
+
+
+button#submitText {
+	border: none;
+	background: none;
+	padding: 0;
+	text-align: left;
+	display: inline-block;
+}
+
+	button#submitText:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
+
+a[id^='showHideBtn']:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+
+#addAnswerBtn:hover, #removeAnswerBtn:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}

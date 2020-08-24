@@ -1,0 +1,141 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+:root {
+    --main-navbar-color: #F1FAEE;
+    --main-bg-color: rgb(69, 123, 157);
+    --main-footer-color: rgb(240, 255, 255);
+    --main-navbuttons-on-hover: #e63946;
+    --main-navbuttons-on-hover-text-color: #F1FAEE;
+}
+
+body > header > nav {
+    background-color: var(--main-navbar-color);
+}
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+body > header > nav > div > div > div {
+    background-color: var(--main-navbar-color) !important;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #F1FAEE;
+    border-color: #1861ac;
+}
+#dropdownMenuLink:active {
+    background-color: #1d3557;
+}
+
+a.dropdown-item:active, button.dropdown-item:active {
+    background-color: #1d3557;
+}
+
+a.dropdown-item:hover, button.dropdown-item:hover {
+    background-color: var(--main-navbuttons-on-hover) !important;
+    color: var(--main-navbuttons-on-hover-text-color);
+}
+
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: var(--main-bg-color);
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: var(--main-footer-color);
+}
+
+/* Loading spinner styles
+-------------------------------------------------- */
+.loading-spinner {
+    display: none;
+    color: green;
+}
+
+/* Layout page styles
+-------------------------------------------------- */
+
+#navbarLogo {
+    max-width: 10rem;
+    height: auto;
+    padding: 0.2rem;
+}
+
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+/* Flaired edges, by Tomas Theunissen */
+
+hr.style-seven {
+    overflow: visible; /* For IE */
+    height: 30px;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px 0 0 0;
+    border-radius: 20px;
+}
+
+    hr.style-seven:before { /* Not really supposed to work, but does */
+        display: block;
+        content: "";
+        height: 30px;
+        margin-top: -31px;
+        border-style: solid;
+        border-color: black;
+        border-width: 0 0 1px 0;
+        border-radius: 20px;
+    }
+
+
+/* Sub menus for under-the-headline actions
+-------------------------------------------------- */
+#subMenuBar {
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,0 +1,110 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Question.EditModel
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+	var isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+	var isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+	var isUserView = await UserManager.IsInRoleAsync(currentUser, "View");
+
+	var questionId = HttpContext.Request.Query["id"];
+	var quizId = HttpContext.Request.Query["QuizId"];
+}
+
+@section Styles {
+	<link rel="stylesheet" href="~/css/QuizManager/Question/shared.css" asp-append-version="true" />
+}
+<div class="card">
+	<div class="card-body">
+
+
+		<h1 class="display-4">Edit</h1>
+		<div class="col-12 col-md-6 col-lg-4" id="subMenuBar">
+			<a asp-page="./Index" asp-route-QuizId="@quizId">Back to List</a>
+			@if (isUserAdmin || isUserEdit)
+			{
+				<form method="post" asp-route-QuestionId="@Model.Question.Id" asp-page-handler="DeleteQuestion">
+					<button id="submitText" class="text-danger" type="submit">Delete</button>
+				</form>
+			}
+		</div>
+		<hr class="style-seven" />
+		<form method="post">
+			<div class="row">
+				<div class="col-md-4">
+					<div asp-validation-summary="All" class="text-danger"></div>
+					<input hidden asp-for="Question.Id" />
+					<input hidden asp-for="Question.CreatedOn" />
+					<div class="form-group">
+						<label asp-for="Question.Text" class="control-label"></label>
+						<input asp-for="Question.Text" class="form-control" />
+						<span asp-validation-for="Question.Text" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="Question.Quiz" class="control-label"></label>
+						<select asp-for="Question.QuizId" class="form-control" asp-items="ViewBag.QuizId"></select>
+						<span asp-validation-for="Question.Quiz" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Save" class="btn btn-primary" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div id="subMenuBar">
+						<a id="addAnswerBtn" class="text-success">Add Answer</a>
+						<a id="removeAnswerBtn" class="text-danger">Remove Answer</a>
+					</div>
+					<p id="addAnswerMsgBox"></p>
+					<hr class="style-two" />
+					@for (var i = 0; i < Model.Question.Answers.Count; i++)
+					{
+						<div id="answer-@i" class="form-group">
+							<input type="hidden" asp-for="Question.Answers[i].Id" />
+							<input type="hidden" asp-for="Question.Answers[i].QuestionId" />
+							<label asp-for="Question.Answers[i].Text" class="control-label"></label>
+							<div class="input-group">
+								<input asp-for="Question.Answers[i].Text" class="form-control" />
+								<div class="input-group-prepend">
+									<span class="input-group-text" id="">Correct?</span>
+								</div>
+								<input asp-for="Question.Answers[i].IsCorrect" onclick="selectOnlyThis(this)" class="form-control isCorrectCheckbox" />
+							</div>
+							<span asp-validation-for="Question.Answers[i].Text" class="text-danger"></span>
+						</div>
+					}
+					@if (Model.Question?.Answers?.Count <= 5)
+					{
+						var stillAvailableAnswers = 5 - Model.Question.Answers.Count;
+						var canDeleteAnswers = 2 - stillAvailableAnswers;
+						<p>You can add @stillAvailableAnswers and delete @canDeleteAnswers more answer(s) </p>
+						int counter = 0;
+						@for (var i = 5 - stillAvailableAnswers; i < 5; i++)
+						{
+				<div id="answer-@i" class="form-group">
+					<input type="hidden" asp-for="NewAnswers[counter].QuestionId" value="@questionId" class="form-control" />
+					<label asp-for="NewAnswers[counter].Text" class="control-label"></label>
+					<div class="input-group">
+						<input asp-for="NewAnswers[counter].Text" class="form-control" />
+						<div class="input-group-prepend">
+							<span class="input-group-text" id="">Correct?</span>
+						</div>
+						<input asp-for="NewAnswers[counter].IsCorrect" onclick="selectOnlyThis(this)" class="form-control isCorrectCheckbox" />
+					</div>
+					<span asp-validation-for="NewAnswers[counter].Text" class="text-danger"></span>
+				</div>
+							counter++;
+						}
+					}
+				</div>
+			</div>
+		</form>
+		<span class="answerCount" id="@Model.Question?.Answers?.Count"></span>
+	</div>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="~/js/QuizManager/Question/shared.js" asp-append-version="true"></script>
+	<script src="~/js/QuizManager/Question/edit.js" asp-append-version="true"></script>
+}

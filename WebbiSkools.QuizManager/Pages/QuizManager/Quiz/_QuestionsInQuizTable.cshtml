@@ -1,0 +1,82 @@
+﻿@model WebbiSkools.QuizManager.Pages.QuizManager.Quiz.DetailsModel
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+	var isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+	var isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+	var isUserView = await UserManager.IsInRoleAsync(currentUser, "View");
+}
+
+@if (Model.Quiz.Questions?.Count > 0)
+{
+	<h1 class="my-4">
+		Questions <small>assigned to this Quiz</small>
+	</h1>
+}
+else
+{
+	<div class="text-center">
+		<h1 class="my-4">
+			No Questions are assigned to this Quiz
+		</h1>
+		<p class="lead">Hit 'Manage Questions' above to add some!</p>
+	</div>
+}
+
+
+@{
+	var cter = 1;
+	foreach (var item in Model.Quiz.Questions)
+	{
+		<div class="card">
+			<div class="card-header"></div>
+			<div class="card-body">
+				<h5 class="card-title">Question #@(cter++)</h5>
+				<p class="card-text">@Html.DisplayFor(modelItem => item.Text)</p>
+				<div class="row">
+					<div class="col-md-6" id="subMenuBar">
+						@if (isUserAdmin || isUserEdit || isUserView)
+						{
+							<a id="showHideBtn-@item.Id" class="card-link text-success" onclick="toggleAnswers(@item.Id)">View Answers</a>
+						}
+						@if (isUserAdmin || isUserEdit)
+						{
+							<form method="post"
+								  data-ajax="true"
+								  data-ajax-confirm="Are you sure you want to unassign this question?"
+								  data-ajax-loading="#spinner-@item.Id"
+								  data-ajax-complete="reload"
+								  asp-page-handler="UnassignQuestionFromCurrentQuiz">
+								<input type="hidden" asp-for="QuestionId" value="@item.Id" />
+								<input type="hidden" asp-for="QuizId" />
+								<button id="submitText" class="card-link text-danger" type="submit">Unnasign From Quiz</button>
+							</form>
+							<form method="post"
+								  data-ajax="true"
+								  data-ajax-confirm="Are you sure you want to delete this question?"
+								  data-ajax-loading="#spinner-@item.Id"
+								  data-ajax-complete="reload" asp-page-handler="HardDeleteQuestion">
+								<input type="hidden" asp-for="QuizId" />
+								<input type="hidden" asp-for="QuestionId" value="@item.Id" />
+								<button id="submitText" class="card-link text-danger" type="submit">Delete</button>
+							</form>
+							<div id="spinner-@item.Id" class="spinner-grow loading-spinner" style="width: 3rem; height: 3rem;" role="status">
+								<span class="sr-only">Loading...</span>
+							</div>
+						}
+					</div>
+				</div>
+				<div class="row">
+					<div class="answers col-md-12" id="answers-@item.Id">
+						<partial name="_AnswersTable" model="@item.Answers" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+	}
+}
+
+
+
+

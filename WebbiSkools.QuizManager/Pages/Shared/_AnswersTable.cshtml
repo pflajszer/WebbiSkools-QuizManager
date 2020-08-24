@@ -1,0 +1,30 @@
+﻿@model ICollection<WebbiSkools.QuizManager.BRL.ViewModels.Quiz.AnswerViewModel>
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+	var isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+	var isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+	var isUserView = await UserManager.IsInRoleAsync(currentUser, "View");
+}
+
+@{
+	if (isUserAdmin || isUserEdit || isUserView)
+	{
+
+		var cter = 65;
+		
+	<ul class="list-group list-group-flush">
+		@foreach (var item in Model)
+		{
+			@if(item.IsCorrect)
+			{
+				<li class="list-group-item bg-success text-white"><b>@((char)cter++).</b> @Html.DisplayFor(modelItem => item.Text)</li>
+			}
+			else
+			{
+				<li class="list-group-item"><b>@((char)cter++).</b> @Html.DisplayFor(modelItem => item.Text)</li>
+			}
+		}
+	</ul>
+	}
+}

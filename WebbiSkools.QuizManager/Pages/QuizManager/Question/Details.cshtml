@@ -1,0 +1,29 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.QuizManager.Question.DetailsModel
+@{
+	ViewData["Title"] = "Details";
+	var quizId = HttpContext.Request.Query["QuizId"];
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">Question Details</h1>
+		<div>
+			<a asp-page="Index" asp-route-QuizId="@quizId">Back to List</a>
+		</div>
+		<hr class="style-seven" />
+		@if (Model.Question.Quiz != null)
+		{
+			<p><b>From Quiz:</b> @Html.DisplayFor(modelItem => Model.Question.Quiz.Name) </p>
+		}
+		else
+		{
+			<p><b>No Quiz</b> is assigned to this question</p>
+		}
+
+		<p class="card-text"><b>Question Text: </b>@Html.DisplayFor(modelItem => Model.Question.Text)</p>
+	</div>
+	<div class="card-footer">
+		<partial name="_AnswersTable" model="@Model.Question.Answers" />
+	</div>
+</div>

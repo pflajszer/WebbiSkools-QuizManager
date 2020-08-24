@@ -1,0 +1,13 @@
+﻿:root {
+	--main-table-bg-color: #f1faee ;
+	--main-table-header-bg-color: rgb(240, 255, 255);
+}
+
+.table {
+	background-color: var(--main-table-bg-color);
+}
+
+thead {
+	background-color: #e63946;
+	color: white;
+}

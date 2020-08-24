@@ -1,0 +1,6 @@
+﻿:root {
+	--main-icon-color: #e63946;
+}
+#mainBulb {
+	color: var(--main-icon-color);
+}

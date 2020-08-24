@@ -1,0 +1,55 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> SignInManager
+@inject UserManager<WebbiSkools.QuizManager.DAL.Entities.Identity.QuizManagerUser> UserManager
+@{
+	var isUserSignedIn = SignInManager.IsSignedIn(User);
+
+	bool isUserAdmin = false;
+	bool isUserEdit = false;
+	bool isUserView = false;
+
+	@if (isUserSignedIn)
+	{
+		var currentUser = await UserManager.GetUserAsync(User);
+		isUserAdmin = await UserManager.IsInRoleAsync(currentUser, "Admin");
+		isUserEdit = await UserManager.IsInRoleAsync(currentUser, "Edit");
+		isUserView = await UserManager.IsInRoleAsync(currentUser, "View");
+	}
+
+}
+
+<div class="dropdown show">
+	<a class="btn btn-primary my-auto" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		@if (isUserSignedIn)
+		{
+			<span>Hello @User.Identity.Name!</span>
+		}
+		else
+		{
+			<span>Menu <i class="fas fa-bars"></i></span>
+		}
+	</a>
+
+	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+		@if (isUserSignedIn)
+		{
+			@if (isUserSignedIn && isUserAdmin)
+			{
+				<a class="dropdown-item" asp-page="/Roles/Index">Roles</a>
+			}
+			<a class="dropdown-item" asp-page="/QuizManager/Quiz/Index">Quizes</a>
+			@if (isUserAdmin || isUserEdit)
+			{
+				<a class="dropdown-item" asp-page="/QuizManager/Question/Index">Questions</a>
+			}
+			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Account/Login", new { area = "Identity" })" method="post">
+				<button class="dropdown-item" type="submit">Logout</button>
+			</form>
+		}
+		else
+		{
+			<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+			<a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+		}
+	</div>
+</div>

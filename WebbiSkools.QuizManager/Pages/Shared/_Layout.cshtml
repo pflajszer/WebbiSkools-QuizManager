@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - WebbiSkools QuizManager</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/card-override.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/jumbotron-override.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/table-override.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/css/button-override.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="https://webbiskools-quizmanager.azurewebsites.net">
+					<img id="navbarLogo" class="img-responsive navbar-logo" src="~/img/WebbiSkools-logo.png" />
+				</a>
+				<partial name="_LoginPartial" />
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<partial name="_CookieConsentPartial" />
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2020 - WebbiSkools - QuizManager - <a asp-area="" asp-page="/Privacy">Privacy</a>
+		</div>
+	</footer>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="https://kit.fontawesome.com/703fe4d975.js" crossorigin="anonymous"></script>
+
+	@RenderSection("Scripts", required: false)
+	@RenderSection("Styles", required: false)
+</body>
+</html>

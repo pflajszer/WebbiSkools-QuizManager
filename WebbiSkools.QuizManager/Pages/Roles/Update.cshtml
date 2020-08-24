@@ -1,0 +1,39 @@
+﻿@page
+@model WebbiSkools.QuizManager.Pages.Roles.UpdateModel
+@{
+	ViewData["Title"] = "Update";
+}
+
+@section Styles
+{
+	<link rel="stylesheet" href="~/css/Roles/update.css" asp-append-version="true" />
+}
+
+<div class="card">
+	<div class="card-body">
+		<h1 class="display-4">Update Role</h1>
+		<a asp-page="Index">Back</a>
+		<hr class="style-seven" />
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<div id="alertBox" class="alert alert-success"></div>
+
+		<form id="updateForm" asp-page-handler="Update" method="post">
+			<input type="hidden" name="roleName" value="@Model.EditModel.Role.Name" />
+			<input type="hidden" name="roleId" value="@Model.EditModel.Role.Id" />
+
+			<h2>Add To @Model.EditModel.Role.Name</h2>
+
+			<div id="membershipTable">
+				<partial name="_MembershipTables" model="@Model.EditModel">
+			</div>
+
+			<button type="submit" class="btn btn-primary">Save</button>
+		</form>
+	</div>
+</div>
+
+@section Scripts
+{
+	<script src="~/js/Roles//update.js" asp-append-version="true"></script>
+	<partial name="_ValidationScriptsPartial" />
+}
